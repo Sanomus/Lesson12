@@ -2,24 +2,18 @@ def catch_errors(func):
     def wrapper(*args):
         try:
             result = func(*args)
-        except KeyError:
-            #'key' in kwargs
-            counter = 0
-            err_list = []
-            for elem in args:
-                for key in elem.keys(): 
-                    if 'bar'!= key:
-                        counter +=1
-                        err_list.append(key)
-
-            result = print(f'Found {counter} error during execution of your function: KeyError no such keys as {err_list}')
+        except KeyError as exception:
+            result = print(f'Found 1 erro during execution of your function: {exception}')
         return result
     return wrapper
 
 
 @catch_errors
 def some_function_with_risky_operation(data):
-    print(data['key'])
+    if 'key' not in data:
+        raise KeyError(f'no such key as {list(data.keys())[0]}')
+    else:
+        print(data['key'])
 
 some_function_with_risky_operation({'foo': 'bar'})
 
