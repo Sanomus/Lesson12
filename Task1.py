@@ -1,18 +1,19 @@
 def is_admin(func):
     def wrapper(**kwargs):
-        for i in kwargs.values():
-            if i == 'admin':
+            try:
                 result = func(**kwargs)
-            else:
-               result = print('D')
-        return result
+            except ValueError as exception:
+                result = print(exception)
+            return result
     return wrapper
            
 
 @is_admin
 def show_customer_receipt(user_type: str):
-    print('Granny cake show_customer_receipt')
+    if user_type != 'admin': 
+        raise ValueError('Permission denied')
+    else:
+        print('Granny cake show_customer_receipt')
 
+show_customer_receipt(user_type='user')
 show_customer_receipt(user_type='admin')
-
-
