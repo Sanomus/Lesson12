@@ -2,7 +2,7 @@ def catch_errors(func):
     def wrapper(*args):
         try:
             result = func(*args)
-        except KeyError as exception:
+        except Exception as exception:
             result = print(f'Found 1 erro during execution of your function: {exception}')
         return result
     return wrapper
