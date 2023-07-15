@@ -1,13 +1,9 @@
 def is_admin(func):
     def wrapper(**kwargs):
-            try:
-                if 'admin' not in kwargs.values():
-                    raise ValueError('Permission denied')
-                else:
-                    result = func(**kwargs)
-            except ValueError as exception:
-                result = print(exception)
-            return result
+        if 'admin' not in kwargs.values():
+            raise ValueError('Permission denied')
+        else:
+            return func(**kwargs)
     return wrapper
            
 
